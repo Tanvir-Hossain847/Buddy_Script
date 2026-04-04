@@ -1,4 +1,7 @@
 import { House, Search } from 'lucide-react'
+import { HiOutlineUserGroup } from "react-icons/hi";
+import { LuHouse, LuMessageCircleMore } from "react-icons/lu";
+import { RiNotification3Line } from "react-icons/ri";   
 import Image from 'next/image'
 import React from 'react'
 
@@ -17,10 +20,17 @@ export default function Navbar() {
         </div>
         <div className="">
             <ul>
-                <li><House/></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li><LuHouse /></li>
+                <li><HiOutlineUserGroup /></li>
+                <li><RiNotification3Line /></li>
+                <li><LuMessageCircleMore /></li>
+                <li><div className="">
+                    <Image src="https://i.ibb.co.com/Zps2TDDy/logo.jpg" alt="Profile Picture"
+                     width={32} 
+                     height={32}                     
+                     className="rounded-full" />
+                     
+                    </div></li>
             </ul>
         </div>
       </div>
