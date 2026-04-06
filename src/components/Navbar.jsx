@@ -36,7 +36,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="relative mx-2 flex-1 max-w-48">
+        <div className="relative mx-2 flex-1 max-w-80">
           <svg className="absolute top-2 left-3" xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 17 17">
             <circle cx="7" cy="7" r="6" stroke="#666" />
             <path stroke="#666" strokeLinecap="round" d="M16 16l-3-3" />
@@ -44,12 +44,12 @@ export default function Navbar() {
           <input
             type="search"
             placeholder="input search text"
-            className="bg-[#F5F5F5] border border-[#F5F5F5] rounded-full w-full h-8 pl-8 pr-3 text-xs placeholder:text-black/25 hover:border-[#1890FF] focus:border-[#1890FF] outline-none transition-all duration-200"
+            className="bg-[#F5F5F5] border border-[#F5F5F5] rounded-full w-full h-7 pl-8 pr-3 text-xs placeholder:text-black/25 hover:border-[#1890FF] focus:border-[#1890FF] outline-none transition-all duration-200"
           />
         </div>
 
         <div className="flex items-center">
-          <ul className="flex items-center mr-1">
+          <ul className="flex items-center mr-1 gap-5">
             <li className="mx-1">
               <Link href="/" className="relative block px-2 pt-3.5 pb-4 border-b-2 border-[#00ACFF] transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" fill="none" viewBox="0 0 18 21">
