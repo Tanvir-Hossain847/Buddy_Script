@@ -116,7 +116,6 @@ export default function CreatePost({ onPostCreated }) {
         </div>
       </div>
 
-      {/* Image preview */}
       {preview && (
         <div className="relative mx-2 mb-2 rounded overflow-hidden inline-block">
           <img src={preview} alt="Preview" className="max-h-40 rounded object-cover" />
@@ -129,7 +128,6 @@ export default function CreatePost({ onPostCreated }) {
         </div>
       )}
 
-      {/* Upload progress */}
       {uploading && (
         <p className="text-xs text-[#1890FF] px-2 mb-1">Uploading image...</p>
       )}
@@ -138,7 +136,6 @@ export default function CreatePost({ onPostCreated }) {
         <p className="text-xs text-red-500 px-2 mb-1">{error}</p>
       )}
 
-      {/* Hidden file input */}
       <input
         ref={fileRef}
         type="file"
@@ -149,7 +146,6 @@ export default function CreatePost({ onPostCreated }) {
 
       <div className="flex items-center justify-between px-3 bg-[rgba(24,144,255,0.05)] rounded-b h-12 mt-2">
         <div className="flex">
-          {/* Photo button — triggers file picker */}
           <div className="flex items-center px-2 cursor-pointer transition-all duration-200">
             <button
               onClick={() => fileRef.current?.click()}

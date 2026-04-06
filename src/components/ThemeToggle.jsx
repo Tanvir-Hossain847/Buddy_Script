@@ -19,7 +19,6 @@ export default function ThemeToggle() {
           transform: "rotate(90deg)",
         }}
       >
-        {/* Knob */}
         <div
           className="absolute transition-all duration-200 rounded-full"
           style={{
@@ -32,7 +31,6 @@ export default function ThemeToggle() {
           }}
         />
 
-        {/* Moon — light mode */}
         <div
           className="absolute transition-all duration-200"
           style={{
@@ -47,7 +45,6 @@ export default function ThemeToggle() {
           </svg>
         </div>
 
-        {/* Sun — dark mode */}
         <div
           className="absolute transition-all duration-200"
           style={{

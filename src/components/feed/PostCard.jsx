@@ -170,7 +170,6 @@ export default function PostCard({ post: initialPost }) {
 
   return (
     <div className="bg-white rounded pb-4 pt-4 mb-3 transition-all duration-200">
-      {/* Header */}
       <div className="flex justify-between items-center mb-3 px-4">
         <div className="flex items-center cursor-pointer">
           <div className="mr-3 shrink-0">
@@ -186,7 +185,6 @@ export default function PostCard({ post: initialPost }) {
         <PostDropdown />
       </div>
 
-      {/* Content */}
       <div className="px-4">
         {post.content && <p className="text-xs text-black m-0 mb-3 leading-5">{post.content}</p>}
         {post.media_url && (
@@ -201,13 +199,11 @@ export default function PostCard({ post: initialPost }) {
         )}
       </div>
 
-      {/* Counts */}
       <div className="flex justify-between items-center px-4 mb-3">
         <span className="text-xs text-[#666]">{post.likes?.length || 0} Likes</span>
         <span className="text-xs text-black/50">{post.comments?.length || 0} Comments</span>
       </div>
 
-      {/* Action buttons */}
       <div className="bg-[#FBFCFD] p-2 flex">
         <button
           onClick={handlePostLike}
@@ -244,7 +240,6 @@ export default function PostCard({ post: initialPost }) {
         </button>
       </div>
 
-      {/* Comment input */}
       {commentingOn === "post" && (
         <form onSubmit={handlePostComment} className="px-4 pt-3 pb-1">
           <div className="bg-[#F6F6F6] rounded-2xl py-1 px-2 flex items-center">
@@ -263,7 +258,6 @@ export default function PostCard({ post: initialPost }) {
         </form>
       )}
 
-      {/* Comments */}
       {post.comments?.length > 0 && (
         <div className="px-4 pt-3 pb-2 flex flex-col gap-3">
           {post.comments.map((comment) => {

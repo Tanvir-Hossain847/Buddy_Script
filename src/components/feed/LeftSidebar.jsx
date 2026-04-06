@@ -74,7 +74,7 @@ export default function LeftSidebar() {
           <a href="#" className="font-medium text-xs text-[#1890FF] leading-5 block cursor-pointer py-1 px-px">See all</a>
         </div>
         {events.map((ev, i) => (
-          <a key={i} href="#" className="block mb-3 cursor-pointer">
+          <div key={i} className="block mb-3 cursor-pointer">
             <div className="bg-white shadow-[0px_4px_8px_rgba(0,0,0,0.08)] rounded mb-3">
               <div className="rounded overflow-hidden">
                 <Image src="/assets/images/feed_event1.png" alt="Event" width={300} height={120} className="w-full h-auto rounded" />
@@ -94,7 +94,7 @@ export default function LeftSidebar() {
                 <a href="#" className="font-medium text-xs text-[#1890FF] block bg-[#F3F9FF] border border-[#1890FF] rounded-sm py-0.5 px-2.5 transition-all duration-200 hover:text-[#F3F9FF] hover:bg-[#1890FF]">Going</a>
               </div>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>

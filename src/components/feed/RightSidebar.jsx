@@ -20,12 +20,12 @@ export default function RightSidebar() {
           <a href="#" className="font-medium text-xs text-[#1890FF] leading-5">See All</a>
         </div>
         <hr className="bg-[#DFDFDF] border-none h-px my-1" />
-        <div className="flex items-center my-4">
+        <div className="flex items-center my-4 cursor-pointer">
           <div className="mr-4 shrink-0">
-            <a href="#"><Image src="/assets/images/Avatar.png" alt="Radovan" width={40} height={40} className="w-10 h-10 rounded-full object-cover" /></a>
+            <Image src="/assets/images/Avatar.png" alt="Radovan" width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
           </div>
           <div>
-            <a href="#"><h4 className="text-xs font-medium text-[#212121] m-0 leading-snug">Radovan SkillArena</h4></a>
+            <h4 className="text-xs font-medium text-[#212121] m-0 leading-snug hover:text-[#1890FF] transition-colors">Radovan SkillArena</h4>
             <p className="text-xs text-[#666] m-0 leading-5">Founder & CEO at Trophy</p>
           </div>
         </div>
@@ -55,10 +55,10 @@ export default function RightSidebar() {
           <div key={i} className="flex items-center justify-between mb-4 p-1 rounded-lg transition-all duration-200 cursor-pointer hover:bg-[#e4e6e9]">
             <div className="flex items-center">
               <div className="mr-3 shrink-0">
-                <a href="#"><Image src={friend.img} alt={friend.name} width={32} height={32} className="w-8 h-8 rounded-full object-cover" /></a>
+                <Image src={friend.img} alt={friend.name} width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
               </div>
               <div>
-                <a href="#"><h4 className="text-xs font-medium text-[#212121] m-0 leading-snug">{friend.name}</h4></a>
+                <h4 className="text-xs font-medium text-[#212121] m-0 leading-snug">{friend.name}</h4>
                 <p className="text-xs font-light text-[#212121] m-0 leading-snug">{friend.role}</p>
               </div>
             </div>
