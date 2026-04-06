@@ -60,22 +60,22 @@ export default function LoginPage() {
   return (
     <section className="min-h-screen bg-[#F0F2F5] relative z-0 flex items-center py-8">
       <div className="absolute top-0 left-0 -z-10">
-        <Image src="/assets/images/shape1.svg" alt="" width={150} height={200} className="w-auto h-auto" />
+        <Image src="/assets/images/shape1.svg" alt="" width={150} height={200} className="w-50" />
       </div>
       <div className="absolute top-0 right-5 -z-10">
-        <Image src="/assets/images/shape2.svg" alt="" width={200} height={200} className="w-auto h-auto" />
+        <Image src="/assets/images/shape2.svg" alt="" width={200} height={200} className="w-100" />
       </div>
       <div className="absolute bottom-0 right-80 -z-10">
-        <Image src="/assets/images/shape3.svg" alt="" width={200} height={200} className="w-auto h-auto" />
+        <Image src="/assets/images/shape3.svg" alt="" width={200} height={200} className="w-100" />
       </div>
 
       <div className="w-full max-w-4xl mx-auto px-4">
         <div className="flex items-center gap-6">
           <div className="flex-2 hidden lg:block">
-            <Image src="/assets/images/login.png" alt="Login" width={500} height={400} className="w-full h-auto" />
+            <Image src="/assets/images/login.png" alt="Login" width={500} height={400} className="w-5/6 h-auto" />
           </div>
 
-          <div className="flex-1 min-w-0">
+          <div className="w-80">
             <div className="bg-white rounded p-7">
               <div className="mb-4 flex justify-center">
                 <Image src="/assets/images/logo.svg" alt="Logo" width={100} height={28} className="w-auto h-auto max-w-24" />

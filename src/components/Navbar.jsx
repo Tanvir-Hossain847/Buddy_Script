@@ -1,7 +1,9 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "@/context/authContext";
 
 const notifications = [
   { img: "/assets/images/friend-req.png", name: "Steve Jobs", msg: "posted a link in your timeline.", time: "42 minutes ago" },
@@ -17,6 +19,16 @@ export default function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
   const notifyRef = useRef(null);
   const profileRef = useRef(null);
+  const { user, signOutUser } = useContext(AuthContext);
+  const router = useRouter();
+
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
+  const photoURL = user?.photoURL || "/assets/images/Avatar.png";
+
+  async function handleLogout() {
+    await signOutUser();
+    router.replace("/login");
+  }
 
   useEffect(() => {
     function handleClick(e) {
@@ -112,10 +124,10 @@ export default function Navbar() {
 
           <div className="flex items-center relative" ref={profileRef}>
             <div className="mr-2 w-5 shrink-0">
-              <Image src="/assets/images/profile.png" alt="Profile" width={20} height={20} className="w-5 h-5 rounded-full object-cover" />
+              <Image src={photoURL} alt={displayName} width={20} height={20} className="w-5 h-5 rounded-full object-cover" />
             </div>
             <div className="flex items-center cursor-pointer" onClick={() => setProfileOpen(!profileOpen)}>
-              <p className="text-sm text-[#212121] m-0 leading-5">Dylan Field</p>
+              <p className="text-sm text-[#212121] m-0 leading-5">{displayName}</p>
               <button className="border-transparent bg-transparent mt-[-2px] ml-1 cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="5" fill="none" viewBox="0 0 10 6">
                   <path fill="#112032" d="M5 5l.354.354L5 5.707l-.354-.353L5 5zm4.354-3.646l-4 4-.708-.708 4-4 .708.708zm-4.708 4l-4-4 .708-.708 4 4-.708.708z" />
@@ -126,30 +138,59 @@ export default function Navbar() {
               <div className="absolute right-0 top-0 translate-y-8 bg-white w-56 p-3 shadow-[0px_10px_20px_rgba(0,0,0,0.08)] rounded z-50">
                 <div className="flex items-center mb-3">
                   <div className="pr-2">
-                    <Image src="/assets/images/profile.png" alt="Profile" width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
+                    <Image src={photoURL} alt={displayName} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#212121] m-0 mb-1 leading-tight">Dylan Field</h4>
-                    <a href="#" className="text-xs text-[#377DFF] leading-tight">View Profile</a>
+                    <h4 className="text-sm font-bold text-[#212121] m-0 mb-1 leading-tight">{displayName}</h4>
+                    <p className="text-xs text-[#666] m-0 leading-tight truncate max-w-[120px]">{user?.email}</p>
                   </div>
                 </div>
                 <hr className="border-[#DFDFDF] my-2" />
                 <ul>
-                  {["Settings", "Help & Support", "Log Out"].map((label) => (
-                    <li key={label} className="mb-3">
-                      <a href="#" className="font-medium text-sm text-[#666] flex justify-between items-center hover:text-[#1890FF] transition-all duration-200">
-                        <div className="flex items-center gap-2">
-                          <span className="bg-[#ebf2ff] p-2 inline-block rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" stroke="#377DFF" strokeWidth="1.5" /></svg>
-                          </span>
-                          {label}
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="5" height="8" fill="none" viewBox="0 0 6 10">
-                          <path fill="#112032" d="M5 5l.354.354L5.707 5l-.353-.354L5 5zM1.354 9.354l4-4-.708-.708-4 4 .708.708zm4-4.708l-4-4-.708.708 4 4 .708-.708z" opacity=".5" />
-                        </svg>
-                      </a>
-                    </li>
-                  ))}
+                  <li className="mb-3">
+                    <a href="#" className="font-medium text-sm text-[#666] flex justify-between items-center hover:text-[#1890FF] transition-all duration-200">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-[#ebf2ff] p-2 inline-block rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" stroke="#377DFF" strokeWidth="1.5" /></svg>
+                        </span>
+                        Settings
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="5" height="8" fill="none" viewBox="0 0 6 10">
+                        <path fill="#112032" d="M5 5l.354.354L5.707 5l-.353-.354L5 5zM1.354 9.354l4-4-.708-.708-4 4 .708.708zm4-4.708l-4-4-.708.708 4 4 .708-.708z" opacity=".5" />
+                      </svg>
+                    </a>
+                  </li>
+                  <li className="mb-3">
+                    <a href="#" className="font-medium text-sm text-[#666] flex justify-between items-center hover:text-[#1890FF] transition-all duration-200">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-[#ebf2ff] p-2 inline-block rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 18 18"><circle cx="9" cy="9" r="7" stroke="#377DFF" strokeWidth="1.5" /></svg>
+                        </span>
+                        Help &amp; Support
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="5" height="8" fill="none" viewBox="0 0 6 10">
+                        <path fill="#112032" d="M5 5l.354.354L5.707 5l-.353-.354L5 5zM1.354 9.354l4-4-.708-.708-4 4 .708.708zm4-4.708l-4-4-.708.708 4 4 .708-.708z" opacity=".5" />
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full font-medium text-sm text-[#666] flex justify-between items-center hover:text-red-500 transition-all duration-200 border-none bg-transparent cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="bg-[#fff0f0] p-2 inline-block rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 19 19">
+                            <path stroke="#e53e3e" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6.667 18H2.889A1.889 1.889 0 011 16.111V2.89A1.889 1.889 0 012.889 1h3.778M13.277 14.222L18 9.5l-4.723-4.722M18 9.5H6.667"/>
+                          </svg>
+                        </span>
+                        Log Out
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="5" height="8" fill="none" viewBox="0 0 6 10">
+                        <path fill="#112032" d="M5 5l.354.354L5.707 5l-.353-.354L5 5zM1.354 9.354l4-4-.708-.708-4 4 .708.708zm4-4.708l-4-4-.708.708 4 4 .708-.708z" opacity=".5" />
+                      </svg>
+                    </button>
+                  </li>
                 </ul>
               </div>
             )}
