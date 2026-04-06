@@ -1,7 +1,62 @@
+"use client";
+import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { AuthContext } from "@/context/authContext";
 
 export default function LoginPage() {
+  const { signInUser, signInWithGoogle, passwordReset } = useContext(AuthContext);
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [resetMsg, setResetMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      await signInUser(email, password);
+      router.replace("/");
+    } catch (err) {
+      setError(err.message.replace("Firebase: ", "").replace(/\(auth.*\)\.?/, "").trim());
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleGoogle() {
+    setError("");
+    setLoading(true);
+    try {
+      await signInWithGoogle();
+      router.replace("/");
+    } catch (err) {
+      setError(err.message.replace("Firebase: ", "").replace(/\(auth.*\)\.?/, "").trim());
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleForgotPassword() {
+    if (!email) {
+      setError("Enter your email above first.");
+      return;
+    }
+    setError("");
+    setResetMsg("");
+    try {
+      await passwordReset(email);
+      setResetMsg("Password reset email sent. Check your inbox.");
+    } catch (err) {
+      setError(err.message.replace("Firebase: ", "").replace(/\(auth.*\)\.?/, "").trim());
+    }
+  }
+
   return (
     <section className="min-h-screen bg-[#F0F2F5] relative z-0 flex items-center py-8">
       <div className="absolute top-0 left-0 -z-10">
@@ -31,7 +86,9 @@ export default function LoginPage() {
 
               <button
                 type="button"
-                className="w-full border border-[#F0F2F5] bg-white rounded flex items-center justify-center py-2 px-8 mb-5 hover:shadow-md transition-all duration-200"
+                onClick={handleGoogle}
+                disabled={loading}
+                className="w-full border border-[#F0F2F5] bg-white rounded flex items-center justify-center py-2 px-8 mb-5 hover:shadow-md transition-all duration-200 disabled:opacity-60"
               >
                 <Image src="/assets/images/google.svg" alt="Google" width={16} height={16} className="w-4 h-4 mr-2" />
                 <span className="font-medium text-xs text-[#312000]">Or sign-in with google</span>
@@ -42,11 +99,17 @@ export default function LoginPage() {
                 <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-[#E8E8E8]" />
               </div>
 
-              <form>
+              {error && <p className="text-xs text-red-500 mb-3 text-center">{error}</p>}
+              {resetMsg && <p className="text-xs text-green-600 mb-3 text-center">{resetMsg}</p>}
+
+              <form onSubmit={handleSubmit}>
                 <div className="mb-2.5">
                   <label className="block font-medium text-xs text-[#4A5568] mb-1.5">Email</label>
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     className="w-full bg-white border border-[#F5F5F5] rounded h-9 px-3 text-xs text-[#2D3748] focus:outline-none focus:border-[#1890FF] transition-all duration-200"
                   />
                 </div>
@@ -54,24 +117,34 @@ export default function LoginPage() {
                   <label className="block font-medium text-xs text-[#4A5568] mb-1.5">Password</label>
                   <input
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                     className="w-full bg-white border border-[#F5F5F5] rounded h-9 px-3 text-xs text-[#2D3748] focus:outline-none focus:border-[#1890FF] transition-all duration-200"
                   />
                 </div>
 
                 <div className="flex items-center justify-between mb-5">
                   <label className="flex items-center gap-1.5 cursor-pointer">
-                    <input type="checkbox" className="w-3 h-3 accent-[#1890FF]" defaultChecked />
+                    <input type="checkbox" className="w-3 h-3 accent-[#1890FF]" />
                     <span className="text-xs text-[#2D3748]">Remember me</span>
                   </label>
-                  <p className="text-xs text-[#1890FF] cursor-pointer m-0">Forgot password?</p>
+                  <button
+                    type="button"
+                    onClick={handleForgotPassword}
+                    className="text-xs text-[#1890FF] cursor-pointer border-none bg-transparent hover:underline"
+                  >
+                    Forgot password?
+                  </button>
                 </div>
 
                 <div className="mb-6">
                   <button
                     type="submit"
-                    className="w-full bg-[#1890FF] border border-transparent rounded py-2.5 font-medium text-xs text-white hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px] transition-all duration-200"
+                    disabled={loading}
+                    className="w-full bg-[#1890FF] border border-transparent rounded py-2.5 font-medium text-xs text-white hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px] transition-all duration-200 disabled:opacity-60"
                   >
-                    Login now
+                    {loading ? "Logging in..." : "Login now"}
                   </button>
                 </div>
               </form>

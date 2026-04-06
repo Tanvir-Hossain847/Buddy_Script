@@ -15,7 +15,6 @@ export default function FeedMiddle() {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, { cache: "no-store" });
       const text = await res.text();
-      console.log("Raw API response:", text);
 
       let data;
       try {
@@ -32,12 +31,7 @@ export default function FeedMiddle() {
         ? data.data
         : [];
 
-      console.log("Parsed posts array:", arr);
-
-      const sorted = [...arr].sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-      setPosts(sorted);
+      setPosts([...arr].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
     } catch (err) {
       console.error("Failed to load posts:", err);
       setError(err.message);
