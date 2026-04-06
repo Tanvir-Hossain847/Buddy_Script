@@ -1,7 +1,7 @@
 "use client"
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { auth } from "../firebase/firebase.init";
+import { auth } from "../Firebase/firebase.init.js"
 import { AuthContext } from "./authContext";
 
 
